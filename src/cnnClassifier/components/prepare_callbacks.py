@@ -20,8 +20,10 @@ class PrepareCallback:
     
     @property
     def _create_ckpt_callbacks(self):
+        # Change the file extension from .h5 to .keras to comply with the new Keras format
+        filepath_with_keras_ext = str(self.config.checkpoint_model_filepath).replace(".h5", ".keras")
         return tf.keras.callbacks.ModelCheckpoint(
-            filepath=str(self.config.checkpoint_model_filepath),  # Convert PosixPath to string
+            filepath=filepath_with_keras_ext,  # Use .keras extension
             save_best_only=True
         )
 
